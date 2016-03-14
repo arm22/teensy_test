@@ -1,4 +1,4 @@
-/* Keyboard example for Teensy USB Development Board
+/* Keyboard example with debug channel, for Teensy USB Development Board
  * http://www.pjrc.com/teensy/usb_keyboard.html
  * Copyright (c) 2008 PJRC.COM, LLC
  * 
@@ -25,7 +25,8 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "usb_keyboard.h"
+#include "usb_keyboard_debug.h"
+#include "print.h"
 
 #define LED_CONFIG	(DDRD |= (1<<6))
 #define LED_ON		(PORTD &= ~(1<<6))
@@ -71,6 +72,10 @@ int main(void)
 	TCCR0B = 0x05;
 	TIMSK0 = (1<<TOIE0);
 
+	print("Begin keyboard example program\n");
+	print("All Port B or Port D pins are inputs with pullup resistors.\n");
+	print("Any connection to ground on Port B or D pins will result in\n");
+	print("keystrokes sent to the PC (and debug messages here).\n");
 	while (1) {
 		// read all port B and port D pins
 		b = PINB;
@@ -82,11 +87,17 @@ int main(void)
 			if (((b & mask) == 0) && (b_prev & mask) != 0) {
 				usb_keyboard_press(KEY_B, KEY_SHIFT);
 				usb_keyboard_press(number_keys[i], 0);
+				print("Port B, bit ");
+				phex(i);
+				print("\n");
 				reset_idle = 1;
 			}
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {
 				usb_keyboard_press(KEY_D, KEY_SHIFT);
 				usb_keyboard_press(number_keys[i], 0);
+				print("Port D, bit ");
+				phex(i);
+				print("\n");
 				reset_idle = 1;
 			}
 			mask = mask << 1;
@@ -109,16 +120,18 @@ int main(void)
 	}
 }
 
-// This interrupt routine is run approx 61 times per second.
-// A very simple inactivity timeout is implemented, where we
-// will send a space character.
-ISR(TIMER0_OVF_vect)
-{
-	idle_count++;
-	if (idle_count > 61 * 8) {
-		idle_count = 0;
-		usb_keyboard_press(KEY_SPACE, 0);
-	}
-}
+// // This interrupt routine is run approx 61 times per second.
+// // A very simple inactivity timeout is implemented, where we
+// // will send a space character and print a message to the
+// // hid_listen debug message window.
+// ISR(TIMER0_OVF_vect)
+// {
+// 	idle_count++;
+// 	if (idle_count > 61 * 8) {
+// 		idle_count = 0;
+// 		print("Timer Event :)\n");
+// 		usb_keyboard_press(KEY_SPACE, 0);
+// 	}
+// }
 
 

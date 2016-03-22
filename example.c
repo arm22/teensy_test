@@ -84,12 +84,12 @@ int main(void)
 		mask = 1;
 		reset_idle = 0;
 		for (i=0; i<8; i++) {
+			//need to add if statements here
 			if (((b & mask) == 0) && (b_prev & mask) != 0) {
-				usb_keyboard_press(KEY_B, KEY_SHIFT);
-				usb_keyboard_press(number_keys[i], 0);
-				print("Port B, bit ");
-				phex(i);
-				print("\n");
+				if (i == 0)
+                                        usb_keyboard_press(KEY_1, 0);
+                               if (i == 1)
+                               		usb_keyboard_press(KEY_2, 0)
 				reset_idle = 1;
 			}
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {

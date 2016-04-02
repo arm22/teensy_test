@@ -89,7 +89,19 @@ int main(void)
 				if (i == 0)
                                         usb_keyboard_press(KEY_1, 0);
                                if (i == 1)
-                               		usb_keyboard_press(KEY_2, 0)
+                               		usb_keyboard_press(KEY_2, 0);
+                               	if (i == 2)
+                               		usb_keyboard_press(KEY_3, 0);
+                       		if (i == 3)
+                               		usb_keyboard_press(KEY_4, 0);
+                       		if (i == 4)
+                               		usb_keyboard_press(KEY_5, 0);
+                       		if (i == 5)
+                               		usb_keyboard_press(KEY_6, 0);
+                       		if (i == 6)
+                               		usb_keyboard_press(KEY_7, 0);
+                       		if (i == 7)
+                               		usb_keyboard_press(KEY_8, 0);
 				reset_idle = 1;
 			}
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {

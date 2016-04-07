@@ -105,11 +105,8 @@ int main(void)
 				reset_idle = 1;
 			}
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {
-				usb_keyboard_press(KEY_D, KEY_SHIFT);
-				usb_keyboard_press(number_keys[i], 0);
-				print("Port D, bit ");
-				phex(i);
-				print("\n");
+				if (i == 0)
+					usb_keyboard(KEY_9, 0);
 				reset_idle = 1;
 			}
 			mask = mask << 1;

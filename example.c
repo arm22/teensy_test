@@ -88,7 +88,7 @@ int main(void)
 			if (((b & mask) == 0) && (b_prev & mask) != 0) {
 				if (i == 0)
                                         usb_keyboard_press(KEY_1, 0);
-                               if (i == 1)
+                                if (i == 1)
                                		usb_keyboard_press(KEY_2, 0);
                                	if (i == 2)
                                		usb_keyboard_press(KEY_3, 0);
@@ -107,6 +107,8 @@ int main(void)
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {
 				if (i == 0)
 					usb_keyboard(KEY_9, 0);
+				if (i == 1)
+					usb_keyboard(KEY_0, 0);
 				reset_idle = 1;
 			}
 			mask = mask << 1;

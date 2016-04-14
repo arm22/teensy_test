@@ -108,7 +108,11 @@ int main(void)
 				if (i == 0)
 					usb_keyboard(KEY_9, 0);
 				if (i == 1)
+					usb_keyboard(KEY_PERIOD, 0);
+				if (i == 2)
 					usb_keyboard(KEY_0, 0);
+				if (i == 3)
+					usb_keyboard(KEYPAD_ENTER)
 				reset_idle = 1;
 			}
 			mask = mask << 1;
